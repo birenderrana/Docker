@@ -1,0 +1,25 @@
+services:
+    redis:
+      image: redis:alpine
+      container_name: redis
+      volumes: 
+        - redis_data:/data
+      networks:
+        - mydefaultnetwork 
+
+    flask:
+      build: .
+      container_name: flask
+      ports:
+        - 5000:5000
+      depends_on:
+        - redis
+      networks:
+        - mydefaultnetwork 
+         
+volumes:
+  redis_data:
+networks:
+  mydefaultnetwork: 
+     
+       
